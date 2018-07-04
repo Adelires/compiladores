@@ -1,0 +1,79 @@
+
+
+.navbar-head{
+    @extend %background-padrao;
+    margin-bottom: 4%;
+    -webkit-box-shadow: -1px 9px 19px -9px rgba(22,177,181,1);
+-moz-box-shadow: -1px 9px 19px -9px rgba(22,177,181,1);
+box-shadow: -1px 9px 19px -9px rgba(22,177,181,1);
+
+a{
+    border: 2px solid #318385;
+    padding: 6px;
+}
+}
+
+
+#gramatica{
+   
+    margin-left: 10%;
+}   
+
+#analyze-table{
+    text-align: center;
+    th{
+        @extend %background-padrao;
+        color: $color-letter;
+    }
+}
+
+
+.footer{
+   
+    nav{
+       background-color: $color-base2;
+        a{
+           margin: auto;
+           color: $color-letter;
+        }
+    }
+
+}
+
+#sintaxe{
+    margin: 10% 0;
+}
+
+.form-buttons {
+    .btn, > span {
+        margin-right: 10px;
+    }
+}
+
+.switch > label{
+    margin: 0;
+}
+
+.btn-custom{
+    @extend %adjust-btn;
+}
+
+.form-buttons{
+    margin-top:3%;
+}
+
+#limpar{
+    @extend %adjust-btn;
+}
+
+#iniciar{
+    @extend %background-padrao;
+    color: $color-letter;
+    border-bottom: 4px solid $color-base2;
+}
+
+
+.adjust-table{
+    margin-left: auto;
+    margin-right: auto;
+}

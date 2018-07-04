@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+   
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="scss/estilos.css">
+    <title>Analisador Sintático</title>
+</head>
+
+<body>
+
+    <!-- Image and text -->
+    <nav class="navbar navbar-dark navbar-head">
+        <a class="navbar-brand" href="#">
+            <img src="img/icon-tabela.png" width="30" height="30" class="d-inline-block align-top" alt="logo"> Analisador Sintático
+        </a>
+    </nav>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-4">
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="sentenca" placeholder="Digite ou gere a senteça." value="">
+                </div>
+
+                <div class="form-group form-buttons">
+
+                    <button type="button" class="btn btn-custom btn-sm" onclick="gerarSentenca()">Gerar Sentença</button>
+                    <span class="switch switch-sm">
+                        <input type="checkbox" class="switch" id="switch-id">
+                        <label for="switch-id">Passo a passo</label>
+                    </span>
+                    <button type="button" id="limpar" class="btn btn-secondary btn-custom btn-sm float-right" onclick="limpar()">Limpar</button>
+                </div>
+                <div class="form-group">
+                    <button type="button" id="iniciar" class="btn btn-block" disabled onclick="iniciarVerificacao()">Iniciar</button>
+                </div>
+
+                <div id="sintaxe" class="row">
+                    <div class="col-sm-4">
+                        <div id="gramatica">
+                            <h5> Gramatica</h5>
+
+                            <ul class="list-unstyled">
+                                <li>S::= cBb | aCA </li>
+                                <li>A::= bCa | ε</li>
+                                <li>B::= aAc | bCc </li>
+                                <li>C::= bB | a | cAa</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div id="first">
+                            <h5> First</h5>
+
+                            <ul class="list-unstyled">
+                                <li>S = { c, a }</li>
+                                <li>A = { b, ε }</li>
+                                <li>B = { a, b }</li>
+                                <li>C = { b, a, c }</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div id="folow">
+                            <h5> Folow</h5>
+
+                            <ul class="list-unstyled">
+                                <li>S = { $ } </li>
+                                <li>A = { b, a, $ } </li>
+                                <li>B = { b, a, c, $ } </li>
+                                <li>C = { b, c, a, $ } </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="analyze-table" class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">a</th>
+                                    <th scope="col">b</th>
+                                    <th scope="col">c</th>
+                                    <th scope="col">$</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">S</th>
+                                    <td>S → aCA</td>
+                                    <td> - </td>
+                                    <td>S →cBb</td>
+                                    <td> - </td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">A</th>
+                                    <td>A → ε</td>
+                                    <td>A → bCa</td>
+                                    <td>A → ε</td>
+                                    <td>A → ε</td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">B</th>
+                                    <td>B → aAc</td>
+                                    <td>B → bCc</td>
+                                    <td> - </td>
+                                    <td> - </td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">C</th>
+                                    <td>C → a</td>
+                                    <td>C → bB</td>
+                                    <td>C → cAa</td>
+                                    <td> - </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-7 adjust-table">
+
+                <h5 id="mostra-senteca"></h5>
+                <table class="table table-bordered table-sm custom-color">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Pilha</th>
+                            <th scope="col">Entrada</th>
+                            <th scope="col">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="monta_tabela">
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="footer">
+        <nav class="navbar">
+            <a class="navbar-brand" href="#">
+                © Adelires A. Chelepa | Ciência da Computação | Turma 2014 | Compiladores.
+            </a>
+        </nav>
+    </div>
+
+
+</body>
+
+</html>
