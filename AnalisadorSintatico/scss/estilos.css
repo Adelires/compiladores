@@ -146,4 +146,21 @@
   color: white;
   text-align: center;
 }
+
+.footer{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+body{
+  position: relative;
+  padding-bottom: 20px;
+}
+
+html{
+  height: 100%;
+  box-sizing: border-box;
+}
 /*# sourceMappingURL=estilos.css.map */
